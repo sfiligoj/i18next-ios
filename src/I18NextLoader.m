@@ -139,7 +139,7 @@ static dispatch_queue_t I18NextLoaderSerialQueue() {
                     if (!self.store[lang]) {
                         ((NSMutableDictionary*)self.store)[lang] = [NSMutableDictionary dictionary];
                     }
-                    self.store[lang][ns] = json;
+                    ((NSMutableDictionary*)self.store)[lang][ns] = json;
                 }];
                 [connections addObject:connection];
             }
@@ -170,7 +170,7 @@ static dispatch_queue_t I18NextLoaderSerialQueue() {
                                      // status code error
                                      // TODO: localize with I18Next ;)
                                      NSString* localizedDescription = [NSString stringWithFormat:
-                                                                       NSLocalizedString(@"Expected status code 200, got %d", nil), statusCode];
+                                                                       @"Expected status code 200, got %ld", (unsigned long)statusCode];
                                      returnError = [NSError errorWithDomain:I18NextErrorDomain code:NSURLErrorBadServerResponse
                                                                    userInfo:@{ NSURLErrorFailingURLErrorKey: url,
                                                                                NSLocalizedDescriptionKey: localizedDescription }];
